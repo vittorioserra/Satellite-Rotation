@@ -135,3 +135,15 @@ prism {
  translate <0,-30,+50>
  
  }
+
+sky_sphere {
+ pigment {
+  crackle form <1,1,0>
+  color_map {
+   [.3 rgb 1]
+   [.4 rgb 0]
+  }
+  scale .002
+ }
+}
+
