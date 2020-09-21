@@ -15,6 +15,7 @@ camera
 	{
 		y*1000
 		color White
+		shadowless
 		translate z*-250
 		rotate y*(i*360/8)
 	}
