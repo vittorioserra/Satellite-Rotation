@@ -22,6 +22,14 @@
 	#break
 #end*/
 
+#declare trackerFOV=
+		cone
+		{
+			<100, 100, -100>, 10
+			<1.3, 1.65, -1.95> 0
+			pigment { color White transmit 0.9}
+		}
+
 #switch (clock) // wiggle wiggle
 	#range(0,0.1)
 		#declare aim = 0;
@@ -46,7 +54,7 @@
 #ifndef (CamType) // if this variable is not set (here or in the .ini file), default to "outside" camera
 	camera
 	{
-		location <10.0, 20.0, -40.0>
+		location <10.0, 25.0, -40.0>
 		look_at <0.0, 0.0,  0.0>
 		right x*image_width/image_height
 	}
@@ -81,7 +89,7 @@ sphere
 	<0,0,0> 6.378
 	texture	{ pigment{ image_map { png "earth.png" map_type 1 } } }
 	scale<1.03*45/7,1*45/7,1.03*45/7>
-	rotate y*clock*5
+	rotate y*(-70+clock*5)
 	translate <0,-30,+50>
 }
 
@@ -168,11 +176,15 @@ union
 		7, // ... up through here
 		5, // the number of points making up the shape ...
 		<0,0>, <1,3>, <5,3>,  <6,0>, <0,0>
-		translate<-3,-3.5,-1.5>  
-		pigment { image_map { png "gold_foil.png" map_type 1 } }  
+		translate<-3,-3.5,-1.5>
+		pigment { image_map { png "gold_foil.png" map_type 1 } }
 		finish { reflection {1.0} ambient 0.3 diffuse 0.1 }
-		rotate<-90, 0, 0> 
-	}    
+		rotate<-90, 0, 0>
+	}
+	box
+	{
+		<1, 1.5, -1.7>, <1.6, 1.8, -2.2>
+	}
 	object
 	{
 		solar_wing
@@ -183,6 +195,9 @@ union
 		solar_wing
 		translate<-8,1.3,-3.0>
 	}
+	#ifdef (trackerFOV)
+	object { trackerFOV }
+	#end
 }
 
 union
